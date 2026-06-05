@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 5 | Personal Blog & Favorites</title>
+    <style>
+        /* --- CSS Reset & Variables --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        :root {
+            --primary-color: #6c5ce7;
+            --primary-dark: #5b4bc4;
+            --secondary-bg: #f8f9fa;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --transition-speed: 0.3s;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-main);
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            padding: 120px 10%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #1e1e24;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- Global Section Layout --- */
+        section {
+            padding: 80px 10%;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* --- Members Section (Grid) --- */
+        #members {
+            background-color: #ffffff;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .profile-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.1);
+        }
+
+        .profile-card img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--secondary-bg);
+        }
+
+        .profile-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Favorites Page/Section --- */
+        #favorites {
+            background-color: var(--secondary-bg);
+        }
+
+        .favorites-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+        }
+
+        @media (max-width: 500px) {
+            .favorites-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .fav-category {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .fav-category h3 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-bg);
+            padding-bottom: 10px;
+        }
+
+        .media-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: var(--secondary-bg);
+            transition: background var(--transition-speed);
+        }
+
+        .media-item:hover {
+            background: #f1f2f6;
+        }
+
+        .media-icon {
+            font-size: 2rem;
+            background: #ffffff;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .media-info {
+            flex-grow: 1;
+        }
+
+        .media-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .media-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .btn-link {
+            display: inline-block;
+            text-decoration: none;
+            background: var(--primary-color);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background var(--transition-speed);
+        }
+
+        .btn-link:hover {
+            background: var(--primary-dark);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #1e1e24;
+            color: #ffffff;
+            text-align: center;
+            padding: 40px 10%;
+            font-size: 0.95rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Group 5 Hub</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#members">Members</a></li>
+            <li><a href="#favorites">Favorites</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1>Welcome to Our Personal Blog</h1>
+        <p>Meet our creative team, discover our unique skills, and take a look at what we enjoy doing outside of our digital workspace.</p>
+    </section>
+
+    <section id="members">
+        <h2>Contributing Members</h2>
+        <div class="members-grid">
+
+            <div class="profile-card">
+                <img src="https://via.placeholder.com/150" alt="Daverine">
+                <h3>Daverine Kezia</h3>
+                <p>Passionate about Web Development and creating beautiful layouts.</p>
+            </div>
+
+            <div class="profile-card">
+                <img src="https://via.placeholder.com/150" alt="Joshua">
+                <h3>Joshua</h3>
+                <p>Loves Online Gaming and exploring vast virtual worlds.</p>
+            </div>
+
+            <div class="profile-card">
+                <img src="https://via.placeholder.com/150" alt="Halima">
+                <h3>Halima</h3>
+                <p>Enjoys Traveling across borders and discovering new cultures.</p>
+            </div>
+
+            <div class="profile-card">
+                <img src="https://via.placeholder.com/150" alt="Pauline">
+                <h3>Pauline</h3>
+                <p>Passionate about Swimming and maintaining an active lifestyle.</p>
+            </div>
+
+            <div class="profile-card">
+                <img src="https://via.placeholder.com/150" alt="Essie">
+                <h3>Essie</h3>
+                <p>Loves Reading Novels and exploring imaginative narratives.</p>
+            </div>
+
+            <div class="profile-card">
+                <img src="https://via.placeholder.com/150" alt="Peter">
+                <h3>Peter</h3>
+                <p>Passionate about Software Engineering and technical innovation.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="favorites">
+        <h2>Our Media Favorites</h2>
+        
+        <div class="favorites-wrapper">
+            
+            <div class="fav-category">
+                <h3>Favorite Music</h3>
+                
+                <div class="media-item">
+                    <div class="media-icon">🎵</div>
+                    <div class="media-info">
+                        <h4>Rap & Hip-Hop Selection</h4>
+                        <p>Curated energetic and lyric-heavy playlists.</p>
+                    </div>
+                    <a href="https://www.youtube.com/results?search_query=rap+music" target="_blank" class="btn-link">Listen</a>
+                </div>
+
+                <div class="media-item">
+                    <div class="media-icon">🎧</div>
+                    <div class="media-info">
+                        <h4>Lo-Fi Beats</h4>
+                        <p>Perfect background music for late-night coding.</p>
+                    </div>
+                    <a href="https://www.youtube.com/results?search_query=lofi+music" target="_blank" class="btn-link">Listen</a>
+                </div>
+            </div>
+
+            <div class="fav-category">
+                <h3>Favorite Entertainment</h3>
+                
+                <div class="media-item">
+                    <div class="media-icon">🎬</div>
+                    <div class="media-info">
+                        <h4>Bel-Air</h4>
+                        <p>A dramatic, modern reimagining of a classic story.</p>
+                    </div>
+                    <a href="https://www.imdb.com/title/tt12878838/" target="_blank" class="btn-link">IMDb</a>
+                </div>
+
+                <div class="media-item">
+                    <div class="media-icon">🍿</div>
+                    <div class="media-info">
+                        <h4>Sci-Fi Favorites</h4>
+                        <p>Deep storylines with cutting edge cinema mechanics.</p>
+                    </div>
+                    <a href="https://www.imdb.com/" target="_blank" class="btn-link">Browse</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Our Personal Blog | Handcrafted by Team Members</p>
+    </footer>
+
+</body>
+</html>
